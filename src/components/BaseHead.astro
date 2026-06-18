@@ -9,6 +9,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 <meta property="og:type" content="article" />
+<meta property="og:url" content={canonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:locale" content="ru_RU" />

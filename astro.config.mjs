@@ -2,9 +2,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// NOTE: update `site`/`base` in Task 14 once the GitHub repo name is known.
+// Deployed as the org user-site https://zapiski-ohotoveda.github.io/ (base '/').
 export default defineConfig({
-  site: 'https://example.github.io',
+  site: 'https://zapiski-ohotoveda.github.io',
   base: '/',
   trailingSlash: 'always',
   integrations: [sitemap()],
