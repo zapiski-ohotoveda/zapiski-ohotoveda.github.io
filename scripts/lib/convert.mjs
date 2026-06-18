@@ -77,15 +77,18 @@ function convertSplit(lines, work, idx) {
 
 function convertSinglePage(lines, work, idx) {
   const buffer = [];
-  const chapterTitles = new Map(work.stories.map((s) => [normalizeTitle(s.title), s.title]));
+  const headingMap = new Map(work.stories.map((s) => [normalizeTitle(s.title), s]));
   const workTitleKey = normalizeTitle(work.title);
 
   for (const raw of lines) {
     if (raw.trim() === '') continue;
     const key = normalizeTitle(raw);
     if (idx.stripSet.has(key) || key === workTitleKey) continue;
-    if (chapterTitles.has(key)) {
-      buffer.push(`## ${chapterTitles.get(key)}`);
+    if (headingMap.has(key)) {
+      const s = headingMap.get(key);
+      // Chapters are h2 (and drive the chapter nav); anything else is a
+      // smaller h3 section that stays out of the index.
+      buffer.push(`${s.kind === 'chapter' ? '##' : '###'} ${s.title}`);
       continue;
     }
     if (idx.epigraphMap.has(key)) {

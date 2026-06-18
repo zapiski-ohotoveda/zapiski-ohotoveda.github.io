@@ -31,5 +31,9 @@ export function indexWork(work) {
       epigraphMap.set(normalizeTitle(story.epigraph), story.slug);
     }
   }
+  // Work-level epigraphs (e.g. a novella's dedication/verse before chapter one).
+  for (const epi of work.epigraphs ?? []) {
+    epigraphMap.set(normalizeTitle(epi), work.id);
+  }
   return { titleMap, subsectionMap, stripSet, epigraphMap };
 }

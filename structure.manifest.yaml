@@ -38,10 +38,14 @@ works:
     strip:
       - "ПОВЕСТЬ.  Готова в печать."
       - "ПОВЕСТЬ. Готова в печать."
+    epigraphs:
+      - "Профессиональным охотникам и охотоведам: ПОСВЯЩАЮ!"
+      - "Мы пьём, веселимся, а ты нелюдим, сидишь как невольник в затворе. Мы чаркой и трубкой тебя угостим, а ты, брат, поведай нам горе!"
     stories:
       - { slug: glava-pervaya, title: "Глава первая", kind: chapter }
       - { slug: glava-vtoraya, title: "Глава вторая", kind: chapter }
       - { slug: glava-tretya, title: "Глава третья", kind: chapter }
       - { slug: glava-chetvyortaya, title: "Глава четвёртая", kind: chapter }
       - { slug: glava-pyataya, title: "Глава пятая", kind: chapter }
-      - { slug: kapitanskaya-dochka, title: "Капитанская дочка", kind: chapter }
+      # A named closing section, not a numbered chapter — kept out of the index.
+      - { slug: kapitanskaya-dochka, title: "Капитанская дочка", kind: section }

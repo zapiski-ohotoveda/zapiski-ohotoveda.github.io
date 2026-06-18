@@ -183,3 +183,39 @@ describe('convertWork epigraph declared before its story heading', () => {
   });
 });
 
+describe('convertWork single_page: work epigraphs + section heading level', () => {
+  const work = {
+    id: 'nov2', title: 'Повесть2', single_page: true, strip: [],
+    epigraphs: ['Посвящаю охотникам!'],
+    stories: [
+      { slug: 'glava-pervaya', title: 'Глава первая', kind: 'chapter' },
+      { slug: 'epilog', title: 'Капитанская дочка', kind: 'section' },
+    ],
+  };
+  const src = [
+    '   Посвящаю охотникам\\!',
+    '',
+    '   Вступление.',
+    '',
+    '        ГЛАВА ПЕРВАЯ.',
+    '',
+    '   Текст главы.',
+    '',
+    '        КАПИТАНСКАЯ ДОЧКА.',
+    '',
+    '   Закрытие.',
+    '',
+  ].join('\n');
+  const [entry] = convertWork(src, work);
+
+  it('wraps a work-level epigraph as a blockquote at the top', () => {
+    expect(entry.body).toContain('> Посвящаю охотникам!');
+    expect(entry.body.indexOf('> Посвящаю')).toBeLessThan(entry.body.indexOf('Вступление.'));
+  });
+  it('renders a chapter as ## and a non-chapter section as ###', () => {
+    expect(entry.body).toMatch(/^## Глава первая$/m);
+    expect(entry.body).toMatch(/^### Капитанская дочка$/m);
+    expect(entry.body).not.toMatch(/^## Капитанская дочка$/m); // not an h2 chapter
+  });
+});
+

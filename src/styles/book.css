@@ -72,6 +72,8 @@ main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 1.25rem 6rem; 
   content: ""; display: block; width: 2.2rem; height: 2px; border-radius: 1px;
   margin: 0.55rem auto 0; background: var(--taiga); opacity: 0.55;
 }
+/* Smaller section heading (e.g. a named closing section, not a chapter) */
+.prose h3 { font-size: 1.08em; text-align: center; letter-spacing: 0.02em; margin: 2.4rem 0 1.2rem; font-weight: 700; }
 .prose p { margin: 0; text-indent: 1.6em; text-align: justify; hyphens: auto; }
 .prose p:first-of-type { text-indent: 0; }
 .prose p + p { margin-top: 0; }
