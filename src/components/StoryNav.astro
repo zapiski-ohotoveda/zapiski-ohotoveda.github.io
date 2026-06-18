@@ -5,7 +5,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <nav class="story-nav">
   {prev ? <a rel="prev" href={`${base}/zapiski-ohotoveda/${prev.slug}/`}>← {prev.title}</a> : <span></span>}
-  <a class="story-nav__toc" href={`${base}/zapiski-ohotoveda/`}>Оглавление</a>
+  <a class="story-nav__toc" href={`${base}/`}>Оглавление</a>
   {next ? <a rel="next" href={`${base}/zapiski-ohotoveda/${next.slug}/`}>{next.title} →</a> : <span></span>}
 </nav>
 <style>

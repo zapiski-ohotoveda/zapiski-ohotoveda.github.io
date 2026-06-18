@@ -20,7 +20,7 @@
     root.dataset.theme = next;
     localStorage.setItem('theme', next);
   });
-  function bump(delta: number) {
+  function bump(delta) {
     const cur = parseFloat(getComputedStyle(root).getPropertyValue('--font-scale')) || 1;
     const next = Math.min(1.5, Math.max(0.85, +(cur + delta).toFixed(2)));
     root.style.setProperty('--font-scale', String(next));

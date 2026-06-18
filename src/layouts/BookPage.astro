@@ -12,8 +12,9 @@ const { title, description } = Astro.props;
     <slot name="head" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">К основному тексту</a>
     <ReadingBar />
-    <main>
+    <main id="main-content">
       <article class="prose">
         <slot />
       </article>
