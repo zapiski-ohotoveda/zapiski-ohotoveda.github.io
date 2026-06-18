@@ -1,0 +1,46 @@
+works:
+  - id: zapiski-ohotoveda
+    title: "Записки охотоведа"
+    source: source/КНИГА.docx.md
+    single_page: false
+    strip:
+      - "КНИГА."
+      - "ЗАПИСКИ ОХОТОВЕДА."
+    stories:
+      - { slug: detstvo, title: "Детство", untitled: true, kind: story }   # PROVISIONAL title — confirm with author
+      - { slug: znakomstvo-s-okhotugodyami, title: "Знакомство с охотугодьями", kind: story }
+      - { slug: okhotobshchestvo, title: "Охотобщество — первая ступень в профессию", kind: story }
+      - { slug: ucheba-put-k-poznaniyu, title: "Учёба — путь к познанию", kind: story }
+      - { slug: mladshiy-brat-tigra, title: "Младший брат тигра", kind: story }
+      - { slug: zagadochny-koster, title: "Загадочный костёр", kind: story }
+      - { slug: sluchay-v-urmane, title: "Случай в урмане", kind: story }
+      - { slug: nepredvidennaya-vstrecha, title: "Непредвиденная встреча", kind: story }
+      - { slug: pervomayskiy-marafon, title: "Первомайский марафон", kind: story }
+      - { slug: bez-viny-vinovaty, title: "Без вины виноватый", kind: story }
+      - { slug: dosadny-sluchay, title: "Досадный случай", kind: story }
+      - { slug: soboliny-kot, title: "Соболиный кот", kind: story }
+      - { slug: vrag-naroda, title: "Враг народа", kind: story }
+      - slug: sobaki-v-moey-seme
+        title: "Собаки в моей семье"
+        kind: story
+        subsections: ["Север", "Буран и Пурга", "Чок и Пуля", "Веста", "Лада", "Кузя", "Жук", "Чарлик", "Чара", "Гошка", "Варька"]
+      - slug: sobachi-istorii
+        title: "Собачьи истории"
+        kind: story
+        subsections: ["Рада", "Север и овцы", "Случай на клюкве", "Волкособы", "Эмпатия"]
+      - { slug: poslednee-pismo, title: "Последнее письмо", kind: story }
+      - { slug: v-noch-na-ivana-kupala, title: "В ночь на Ивана Купала", kind: story }
+  - id: taezhnyy-kapkan
+    title: "Таёжный капкан"
+    source: source/ПОВЕСТЬ.docx.md
+    single_page: true
+    strip:
+      - "ПОВЕСТЬ.  Готова в печать."
+      - "ПОВЕСТЬ. Готова в печать."
+    stories:
+      - { slug: glava-pervaya, title: "Глава первая", kind: chapter }
+      - { slug: glava-vtoraya, title: "Глава вторая", kind: chapter }
+      - { slug: glava-tretya, title: "Глава третья", kind: chapter }
+      - { slug: glava-chetvyortaya, title: "Глава четвёртая", kind: chapter }
+      - { slug: glava-pyataya, title: "Глава пятая", kind: chapter }
+      - { slug: kapitanskaya-dochka, title: "Капитанская дочка", kind: chapter }
