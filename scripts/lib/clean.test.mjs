@@ -21,6 +21,10 @@ describe('isSceneBreak', () => {
   it('rejects normal text', () => {
     expect(isSceneBreak('обычный абзац')).toBe(false);
   });
+  it('rejects a bare ** and accepts longer rows', () => {
+    expect(isSceneBreak('**')).toBe(false);
+    expect(isSceneBreak('****')).toBe(true);
+  });
 });
 
 describe('uppercaseFraction', () => {
@@ -40,6 +44,9 @@ describe('normalizeTitle', () => {
     expect(normalizeTitle('  СОБОЛИНЫЙ КОТ.  ')).toBe('СОБОЛИНЫЙ КОТ');
     expect(normalizeTitle('ДОСАДНЫЙ СЛУЧАЙ\\!')).toBe('ДОСАДНЫЙ СЛУЧАЙ');
     expect(normalizeTitle('ГЛАВА   ПЕРВАЯ.')).toBe('ГЛАВА ПЕРВАЯ');
+  });
+  it('uppercases mixed-case Cyrillic input', () => {
+    expect(normalizeTitle('Досадный случай\\!')).toBe('ДОСАДНЫЙ СЛУЧАЙ');
   });
 });
 

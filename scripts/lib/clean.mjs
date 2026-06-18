@@ -12,7 +12,7 @@ export function collapseWhitespace(line) {
 
 export function isSceneBreak(line) {
   const s = collapseWhitespace(unescape(line));
-  return /^\*( ?\*){1,}$/.test(s); // ***, * * *, ** etc.
+  return /^\*( ?\*){2,}$/.test(s); // *** or * * * (3+ asterisks); rejects a bare **
 }
 
 export function uppercaseFraction(text) {
@@ -26,7 +26,7 @@ export function uppercaseFraction(text) {
 
 export function normalizeTitle(text) {
   return collapseWhitespace(unescape(text))
-    .replace(/[.!?:;]+$/u, '')
+    .replace(/[.!?]+$/u, '')
     .trim()
     .toUpperCase();
 }
