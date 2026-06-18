@@ -4,19 +4,23 @@
 
 :root {
   --font-scale: 1;
-  --paper: #faf6ec;
-  --ink: #2b2620;
-  --muted: #6b6253;
-  --accent: #5c4326;
-  --rule: #d9cdb6;
+  --paper: #f5efdf;       /* warm aged paper */
+  --ink: #29251f;
+  --muted: #6f6553;
+  --accent: #6a4a24;      /* warm cedar — links */
+  --taiga: #3e5a43;       /* deep pine — ornaments, drop caps, heading marks */
+  --steppe: #b0863a;      /* steppe wheat/ochre — secondary accent */
+  --rule: #d8ccb2;
   --measure: 38rem;
 }
 :root[data-theme='dark'] {
-  --paper: #1c1a17;
-  --ink: #e8e0d0;
-  --muted: #a89f8c;
+  --paper: #15191a;       /* taiga night */
+  --ink: #e7dec9;
+  --muted: #a59b86;
   --accent: #c9a36a;
-  --rule: #3a352d;
+  --taiga: #80a17e;       /* moonlit pine */
+  --steppe: #c9a86a;
+  --rule: #313a33;
 }
 
 * { box-sizing: border-box; }
@@ -59,6 +63,10 @@ main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 1.25rem 6rem; 
 
 .prose h1 { font-size: 1.9em; line-height: 1.2; text-align: center; margin: 1rem 0 2.5rem; font-weight: 700; }
 .prose h2 { font-size: 1.25em; text-align: center; letter-spacing: 0.03em; margin: 2.8rem 0 1.4rem; font-weight: 700; }
+.prose h2::after {
+  content: ""; display: block; width: 2.2rem; height: 2px; border-radius: 1px;
+  margin: 0.55rem auto 0; background: var(--taiga); opacity: 0.55;
+}
 .prose p { margin: 0; text-indent: 1.6em; text-align: justify; hyphens: auto; }
 .prose p:first-of-type { text-indent: 0; }
 .prose p + p { margin-top: 0; }
@@ -66,7 +74,7 @@ main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 1.25rem 6rem; 
 /* Drop cap on the opening paragraph of each work/story */
 .prose > p:first-of-type::first-letter {
   float: left; font-size: 3.1em; line-height: 0.8;
-  padding: 0.05em 0.08em 0 0; color: var(--accent); font-weight: 700;
+  padding: 0.05em 0.08em 0 0; color: var(--taiga); font-weight: 700;
 }
 
 /* Epigraphs (author's ALL-CAPS aphorisms) */
@@ -77,13 +85,25 @@ main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 1.25rem 6rem; 
 }
 .prose blockquote p { text-indent: 0; text-align: center; }
 
-/* Scene break ornament */
+/* Scene break — a small fir grove on the horizon */
 .prose hr {
-  border: 0; margin: 2.2rem 0; text-align: center;
+  border: 0; height: 22px; width: 11rem; margin: 2.6rem auto;
+  background-color: var(--taiga); opacity: 0.85;
+  -webkit-mask: center / contain no-repeat url('../assets/scene-break.svg');
+          mask: center / contain no-repeat url('../assets/scene-break.svg');
 }
-.prose hr::before { content: '* * *'; color: var(--muted); letter-spacing: 0.6em; }
 
-a { color: var(--accent); }
+a { color: var(--accent); text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+a:hover { color: var(--taiga); }
+
+/* Faint aged-paper grain */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 5;
+  background: url('../assets/grain.svg'); background-size: 180px 180px;
+  opacity: 0.025; mix-blend-mode: multiply;
+}
+:root[data-theme='dark'] body::after { opacity: 0.05; mix-blend-mode: screen; }
+
 @media (max-width: 480px) {
   body { font-size: calc(1.08rem * var(--font-scale)); }
   .prose p { text-align: left; }

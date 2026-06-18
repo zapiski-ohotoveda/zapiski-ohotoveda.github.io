@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BookPage from '../layouts/BookPage.astro';
 import SiteIndex from '../components/SiteIndex.astro';
+import HorizonOrnament from '../components/HorizonOrnament.astro';
 
 const stories = (await getCollection('collection')).sort((a, b) => a.data.order - b.data.order)
   .map((s) => ({ slug: s.data.slug, title: s.data.title, subsections: s.data.subsections }));
@@ -14,6 +15,7 @@ const chapters = headings.filter((h) => h.depth === 2).map((h) => ({ slug: h.slu
   title="Записки охотоведа — рассказы и повесть об охоте"
   description="Рассказы, очерки и повесть «Таёжный капкан» — о природе, охоте и людях тайги.">
   <h1>Записки охотоведа</h1>
+  <HorizonOrnament />
   <p class="home-lead">Воспоминания, очерки и повесть профессионального охотоведа — о тайге,
      родной земле и людях, для которых охота была судьбой.</p>
   <SiteIndex stories={stories} chapters={chapters} />

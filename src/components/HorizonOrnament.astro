@@ -1,0 +1,42 @@
+---
+// A subtle horizon: a taiga grove on the left dissolving into steppe grass on
+// the right — the geography of these stories (Irtysh: forest meeting steppe).
+const baseY = 40;
+const firs = [
+  { x: 24, h: 20 }, { x: 40, h: 30 }, { x: 56, h: 22 },
+  { x: 73, h: 27 }, { x: 90, h: 17 }, { x: 134, h: 21 },
+];
+function fir(x, h) {
+  const top = baseY - h;
+  const w = Math.max(5, h * 0.4);
+  const t1 = top + h * 0.32, t2 = top + h * 0.62;
+  const w1 = w * 0.48, w2 = w * 0.76;
+  return `M${x} ${top} L${x - w1} ${t1} L${x - w1 * 0.45} ${t1} L${x - w2} ${t2} L${x - w2 * 0.45} ${t2} L${x - w} ${baseY} L${x + w} ${baseY} L${x + w2 * 0.45} ${t2} L${x + w2} ${t2} L${x + w1 * 0.45} ${t1} L${x + w1} ${t1} Z`;
+}
+const tufts = [228, 246, 262, 280, 298, 316, 334, 350];
+function blades(x) {
+  return [
+    `M${x} ${baseY} C ${x - 1} ${baseY - 5}, ${x - 3} ${baseY - 8}, ${x - 4.5} ${baseY - 12}`,
+    `M${x} ${baseY} C ${x} ${baseY - 6}, ${x} ${baseY - 9}, ${x + 0.5} ${baseY - 13}`,
+    `M${x} ${baseY} C ${x + 1} ${baseY - 5}, ${x + 3} ${baseY - 8}, ${x + 4.5} ${baseY - 11}`,
+  ];
+}
+---
+<div class="horizon" aria-hidden="true">
+  <svg viewBox="0 0 380 50" preserveAspectRatio="xMidYMid meet">
+    <line x1="6" y1={baseY} x2="374" y2={baseY} class="o-rule" />
+    {firs.map((f) => <path d={fir(f.x, f.h)} class="o-taiga" />)}
+    {firs.map((f) => <rect x={f.x - 0.85} y={baseY} width="1.7" height={Math.min(4, f.h * 0.14)} class="o-taiga" />)}
+    {tufts.map((x) => blades(x).map((d) => <path d={d} class="o-steppe" />))}
+    <path d="M150 13 l3.6 -2.8 l3.6 2.8" class="o-bird" />
+    <path d="M170 17 l3 -2.4 l3 2.4" class="o-bird" />
+  </svg>
+</div>
+<style>
+  .horizon { max-width: 23rem; margin: 0.4rem auto 2rem; opacity: 0.9; }
+  .horizon svg { display: block; width: 100%; height: auto; }
+  .o-taiga { fill: var(--taiga); }
+  .o-rule { stroke: var(--rule); stroke-width: 1; opacity: 0.6; }
+  .o-steppe { fill: none; stroke: var(--steppe); stroke-width: 1; stroke-linecap: round; opacity: 0.8; }
+  .o-bird { fill: none; stroke: var(--muted); stroke-width: 1; stroke-linecap: round; opacity: 0.5; }
+</style>
