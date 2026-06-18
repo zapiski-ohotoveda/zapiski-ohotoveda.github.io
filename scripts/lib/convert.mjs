@@ -4,27 +4,32 @@ import { indexWork } from './manifest.mjs';
 const EPIGRAPH_THRESHOLD = 0.7;
 
 export function convertWork(sourceText, work) {
-  const { titleMap, subsectionMap, stripSet, epigraphSet } = indexWork(work);
+  const { titleMap, subsectionMap, stripSet, epigraphMap } = indexWork(work);
   const lines = sourceText.split('\n');
 
   if (work.single_page) {
-    return [convertSinglePage(lines, work, { stripSet, epigraphSet })];
+    return [convertSinglePage(lines, work, { stripSet, epigraphMap })];
   }
-  return convertSplit(lines, work, { titleMap, subsectionMap, stripSet, epigraphSet });
+  return convertSplit(lines, work, { titleMap, subsectionMap, stripSet, epigraphMap });
 }
 
-function emitParagraph(buffer, rawLine, epigraphSet) {
+function emitParagraph(buffer, rawLine) {
   if (isSceneBreak(rawLine)) {
     buffer.push('---');
     return;
   }
   const text = collapseWhitespace(unescape(rawLine));
-  // An epigraph is either an ALL-CAPS aphorism or a manifest-declared one.
-  if (uppercaseFraction(text) >= EPIGRAPH_THRESHOLD || epigraphSet.has(normalizeTitle(rawLine))) {
+  // Auto-detect the author's ALL-CAPS aphorisms as epigraphs. Sentence-case
+  // epigraphs are handled separately via the manifest's epigraphMap.
+  if (uppercaseFraction(text) >= EPIGRAPH_THRESHOLD) {
     buffer.push(`> ${text}`);
   } else {
     buffer.push(text);
   }
+}
+
+function epigraphLine(rawLine) {
+  return `> ${collapseWhitespace(unescape(rawLine))}`;
 }
 
 function bodyFrom(buffer) {
@@ -49,7 +54,13 @@ function convertSplit(lines, work, idx) {
       buffers.get(current.slug).push(`## ${idx.subsectionMap.get(key).title}`);
       continue;
     }
-    emitParagraph(buffers.get(current.slug), raw, idx.epigraphSet);
+    if (idx.epigraphMap.has(key)) {
+      // Attach to the declaring story (may differ from current — a preface
+      // epigraph can appear before its story's heading).
+      buffers.get(idx.epigraphMap.get(key)).push(epigraphLine(raw));
+      continue;
+    }
+    emitParagraph(buffers.get(current.slug), raw);
   }
 
   work.stories.forEach((story, order) => {
@@ -77,7 +88,11 @@ function convertSinglePage(lines, work, idx) {
       buffer.push(`## ${chapterTitles.get(key)}`);
       continue;
     }
-    emitParagraph(buffer, raw, idx.epigraphSet);
+    if (idx.epigraphMap.has(key)) {
+      buffer.push(epigraphLine(raw));
+      continue;
+    }
+    emitParagraph(buffer, raw);
   }
 
   return {

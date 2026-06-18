@@ -30,7 +30,7 @@ works:
         kind: story
         subsections: ["Рада", "Север и овцы", "Случай на клюкве", "Волкособы", "Эмпатия"]
       - { slug: poslednee-pismo, title: "Последнее письмо", kind: story }
-      - { slug: v-noch-na-ivana-kupala, title: "В ночь на Ивана Купала", kind: story }
+      - { slug: v-noch-na-ivana-kupala, title: "В ночь на Ивана Купала", kind: story, epigraph: "Один знакомый рыбак рассказал мне историю, которая приключилась с ним на рыбалке, в ночь на ИВАН КУПАЛА. Своими словами попробую её пересказать. К его рассказу я добавил и личной фантазии." }
   - id: taezhnyy-kapkan
     title: "Таёжный капкан"
     source: source/ПОВЕСТЬ.docx.md

@@ -15,8 +15,10 @@ export function indexWork(work) {
   const subsectionMap = new Map();
   const stripSet = new Set((work.strip ?? []).map(normalizeTitle));
   // Sentence-case epigraphs the author wrote that the ALL-CAPS heuristic won't
-  // catch; declared per story in the manifest and matched by normalized text.
-  const epigraphSet = new Set();
+  // catch; declared per story and matched by normalized text. Maps the
+  // epigraph -> its owning story slug, so it is attached to that story even
+  // when it appears in the source before the story's heading.
+  const epigraphMap = new Map();
 
   for (const story of work.stories) {
     if (!story.untitled) {
@@ -26,8 +28,8 @@ export function indexWork(work) {
       subsectionMap.set(normalizeTitle(sub), { parent: story, title: sub });
     }
     if (story.epigraph) {
-      epigraphSet.add(normalizeTitle(story.epigraph));
+      epigraphMap.set(normalizeTitle(story.epigraph), story.slug);
     }
   }
-  return { titleMap, subsectionMap, stripSet, epigraphSet };
+  return { titleMap, subsectionMap, stripSet, epigraphMap };
 }

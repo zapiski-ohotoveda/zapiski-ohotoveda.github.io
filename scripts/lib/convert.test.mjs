@@ -152,3 +152,34 @@ describe('convertWork manifest-declared epigraph (sentence case)', () => {
   });
 });
 
+describe('convertWork epigraph declared before its story heading', () => {
+  const work = {
+    id: 'demo4', title: 'Демо4', single_page: false, strip: [],
+    stories: [
+      { slug: 'pismo', title: 'Письмо', untitled: true, kind: 'story' },
+      { slug: 'noch', title: 'Ночь', kind: 'story', epigraph: 'Один рыбак рассказал историю!' },
+    ],
+  };
+  const src = [
+    '   Текст письма.',
+    '',
+    '   Один рыбак рассказал историю\\!', // epigraph for "noch" but sits before its heading
+    '',
+    '        НОЧЬ.',
+    '',
+    '   Текст про ночь.',
+    '',
+  ].join('\n');
+  const entries = convertWork(src, work);
+  const pismo = entries.find((e) => e.slug === 'pismo');
+  const noch = entries.find((e) => e.slug === 'noch');
+
+  it('removes the preface from the preceding story', () => {
+    expect(pismo.body).not.toContain('рыбак');
+  });
+  it('attaches it as the epigraph at the top of the owning story', () => {
+    expect(noch.body).toContain('> Один рыбак рассказал историю!');
+    expect(noch.body.indexOf('> Один рыбак')).toBeLessThan(noch.body.indexOf('Текст про ночь.'));
+  });
+});
+

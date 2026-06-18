@@ -34,8 +34,9 @@ describe('loadManifest + indexWork', () => {
     expect(collection.stories[0].untitled).toBe(true);
   });
 
-  it('collects declared sentence-case epigraphs into epigraphSet (normalized)', () => {
+  it('maps declared sentence-case epigraphs to their owning story slug', () => {
     const idx = indexWork(collection);
-    expect(idx.epigraphSet.has(normalizeTitle('Охота без собак, как детство без сказок!'))).toBe(true);
+    expect(idx.epigraphMap.get(normalizeTitle('Охота без собак, как детство без сказок!')))
+      .toBe('sobaki-v-moey-zhizni');
   });
 });
