@@ -12,13 +12,13 @@ works:
       - { slug: okhotobshchestvo, title: "Охотобщество, как первая ступень в профессию", kind: story }
       - { slug: ucheba-put-k-poznaniyu, title: "Учёба — путь к познанию", kind: story }
       - { slug: mladshiy-brat-tigra, title: "Младший брат тигра", kind: story }
-      - { slug: zagadochny-koster, title: "Загадочный костёр", kind: story }
-      - { slug: sluchay-v-urmane, title: "Случай в урмане", kind: story }
-      - { slug: nepredvidennaya-vstrecha, title: "Непредвиденная встреча", kind: story }
-      - { slug: pervomayskiy-marafon, title: "Первомайский марафон", kind: story }
-      - { slug: bez-viny-vinovaty, title: "Без вины — виноватый", kind: story }
-      - { slug: dosadny-sluchay, title: "Досадный случай", kind: story }
-      - { slug: soboliny-kot, title: "Соболиный кот", kind: story }
+      - { slug: zagadochny-koster, title: "Загадочный костёр", kind: story, epigraph: "Когда я вижу на небе большую и яркую луну, часто, вспоминаю этот, незабываемый случай!" }
+      - { slug: sluchay-v-urmane, title: "Случай в урмане", kind: story, epigraph: "Если Вас предал друг, расстаньтесь с ним, или смиритесь с тем, что он предаст Вас вновь!" }
+      - { slug: nepredvidennaya-vstrecha, title: "Непредвиденная встреча", kind: story, epigraph: "Если мечтаешь о радуге, будь готов попасть под дождь!" }
+      - { slug: pervomayskiy-marafon, title: "Первомайский марафон", kind: story, epigraph: "Спасение утопающих, дело рук самих утопающих!" }
+      - { slug: bez-viny-vinovaty, title: "Без вины — виноватый", kind: story, epigraph: "Как-то, моя племянница, указав на чучело головы дикого зверя, висевшее на стене, спросила: «Дядя, это ты его убил?» «Охотники не убивают охотничьих животных», ответил я и прочитал в её глазах непонимание и удивление." }
+      - { slug: dosadny-sluchay, title: "Досадный случай", kind: story, epigraph: "Все беды - от баб!" }
+      - { slug: soboliny-kot, title: "Соболиный кот", kind: story, epigraph: "Грош меняю, алтын сдачи беру. (Пословица.)" }
       - { slug: vrag-naroda, title: "Враг народа", kind: story }
       - { slug: sobaki-v-moey-zhizni, title: "Собаки в моей жизни", kind: story, epigraph: "Охота без собак, как детство без сказок!" }
       - slug: sobaki-v-moey-seme
@@ -29,7 +29,7 @@ works:
         title: "Собачьи истории"
         kind: story
         subsections: ["Рада", "Север и овцы", "Случай на клюкве", "Волкособы", "Эмпатия"]
-      - { slug: poslednee-pismo, title: "Последнее письмо", kind: story }
+      - { slug: poslednee-pismo, title: "Последнее письмо", kind: story, colophon: ["Виталий Ворушин. май 2024 года.", "В мае 1974 года я вернулся из Армии."] }
       - { slug: v-noch-na-ivana-kupala, title: "В ночь на Ивана Купала", kind: story, epigraph: "Один знакомый рыбак рассказал мне историю, которая приключилась с ним на рыбалке, в ночь на ИВАН КУПАЛА. Своими словами попробую её пересказать. К его рассказу я добавил и личной фантазии." }
   - id: taezhnyy-kapkan
     title: "Таёжный капкан"
@@ -41,6 +41,9 @@ works:
     epigraphs:
       - "Профессиональным охотникам и охотоведам: ПОСВЯЩАЮ!"
       - "Мы пьём, веселимся, а ты нелюдим, сидишь как невольник в затворе. Мы чаркой и трубкой тебя угостим, а ты, брат, поведай нам горе!"
+    colophon:
+      - "Биолог-охотовед Виталий Ворушин."
+      - "Р. S. В этой маленькой, таёжной повести мне, воспитаннику иркутской школы охотоведов, хотелось показать кусочек той, непростой, жизни, уже далёких, советских времён, в которой я жил и работал!"
     stories:
       - { slug: glava-pervaya, title: "Глава первая", kind: chapter }
       - { slug: glava-vtoraya, title: "Глава вторая", kind: chapter }
