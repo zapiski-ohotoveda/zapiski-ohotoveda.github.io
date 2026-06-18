@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import BookPage from '../../layouts/BookPage.astro';
+import StoryNav from '../../components/StoryNav.astro';
+
+export async function getStaticPaths() {
+  const stories = (await getCollection('collection')).sort((a, b) => a.data.order - b.data.order);
+  return stories.map((story, i) => ({
+    params: { slug: story.data.slug },
+    props: {
+      story,
+      prev: i > 0 ? stories[i - 1].data : undefined,
+      next: i < stories.length - 1 ? stories[i + 1].data : undefined,
+    },
+  }));
+}
+
+const { story, prev, next } = Astro.props;
+const { Content } = await render(story);
+const description = `${story.data.title} — рассказ из книги «Записки охотоведа».`;
+---
+<BookPage title={`${story.data.title} — Записки охотоведа`} description={description}>
+  <h1>{story.data.title}</h1>
+  <Content />
+  <StoryNav prev={prev} next={next} />
+</BookPage>

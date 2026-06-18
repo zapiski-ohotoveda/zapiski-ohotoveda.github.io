@@ -1,0 +1,17 @@
+---
+interface Props { prev?: { slug: string; title: string }; next?: { slug: string; title: string }; }
+const { prev, next } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<nav class="story-nav">
+  {prev ? <a rel="prev" href={`${base}/zapiski-ohotoveda/${prev.slug}/`}>← {prev.title}</a> : <span></span>}
+  <a class="story-nav__toc" href={`${base}/zapiski-ohotoveda/`}>Оглавление</a>
+  {next ? <a rel="next" href={`${base}/zapiski-ohotoveda/${next.slug}/`}>{next.title} →</a> : <span></span>}
+</nav>
+<style>
+  .story-nav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 4rem;
+    padding-top: 1.5rem; border-top: 1px solid var(--rule); font-family: system-ui, sans-serif;
+    font-size: 0.9rem; }
+  .story-nav a { color: var(--accent); text-decoration: none; }
+  .story-nav__toc { color: var(--muted); }
+</style>
