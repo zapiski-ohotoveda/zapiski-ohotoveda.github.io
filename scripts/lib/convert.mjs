@@ -4,22 +4,23 @@ import { indexWork } from './manifest.mjs';
 const EPIGRAPH_THRESHOLD = 0.7;
 
 export function convertWork(sourceText, work) {
-  const { titleMap, subsectionMap, stripSet } = indexWork(work);
+  const { titleMap, subsectionMap, stripSet, epigraphSet } = indexWork(work);
   const lines = sourceText.split('\n');
 
   if (work.single_page) {
-    return [convertSinglePage(lines, work, { stripSet })];
+    return [convertSinglePage(lines, work, { stripSet, epigraphSet })];
   }
-  return convertSplit(lines, work, { titleMap, subsectionMap, stripSet });
+  return convertSplit(lines, work, { titleMap, subsectionMap, stripSet, epigraphSet });
 }
 
-function emitParagraph(buffer, rawLine) {
+function emitParagraph(buffer, rawLine, epigraphSet) {
   if (isSceneBreak(rawLine)) {
     buffer.push('---');
     return;
   }
   const text = collapseWhitespace(unescape(rawLine));
-  if (uppercaseFraction(text) >= EPIGRAPH_THRESHOLD) {
+  // An epigraph is either an ALL-CAPS aphorism or a manifest-declared one.
+  if (uppercaseFraction(text) >= EPIGRAPH_THRESHOLD || epigraphSet.has(normalizeTitle(rawLine))) {
     buffer.push(`> ${text}`);
   } else {
     buffer.push(text);
@@ -48,7 +49,7 @@ function convertSplit(lines, work, idx) {
       buffers.get(current.slug).push(`## ${idx.subsectionMap.get(key).title}`);
       continue;
     }
-    emitParagraph(buffers.get(current.slug), raw);
+    emitParagraph(buffers.get(current.slug), raw, idx.epigraphSet);
   }
 
   work.stories.forEach((story, order) => {
@@ -76,7 +77,7 @@ function convertSinglePage(lines, work, idx) {
       buffer.push(`## ${chapterTitles.get(key)}`);
       continue;
     }
-    emitParagraph(buffer, raw);
+    emitParagraph(buffer, raw, idx.epigraphSet);
   }
 
   return {

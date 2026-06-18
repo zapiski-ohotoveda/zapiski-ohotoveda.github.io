@@ -1,7 +1,7 @@
 ---
 title: "Собаки в моей семье"
 slug: "sobaki-v-moey-seme"
-order: 13
+order: 14
 work: "zapiski-ohotoveda"
 subsections:
   - title: "Север"

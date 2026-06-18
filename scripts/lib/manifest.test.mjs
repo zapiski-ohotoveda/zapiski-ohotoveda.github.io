@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { loadManifest, indexWork } from './manifest.mjs';
+import { normalizeTitle } from './clean.mjs';
 
 describe('loadManifest + indexWork', () => {
   const m = loadManifest('structure.manifest.yaml');
@@ -31,5 +32,10 @@ describe('loadManifest + indexWork', () => {
 
   it('marks the first collection story as untitled opening', () => {
     expect(collection.stories[0].untitled).toBe(true);
+  });
+
+  it('collects declared sentence-case epigraphs into epigraphSet (normalized)', () => {
+    const idx = indexWork(collection);
+    expect(idx.epigraphSet.has(normalizeTitle('Охота без собак, как детство без сказок!'))).toBe(true);
   });
 });

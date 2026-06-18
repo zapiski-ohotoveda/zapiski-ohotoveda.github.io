@@ -20,6 +20,7 @@ works:
       - { slug: dosadny-sluchay, title: "Досадный случай", kind: story }
       - { slug: soboliny-kot, title: "Соболиный кот", kind: story }
       - { slug: vrag-naroda, title: "Враг народа", kind: story }
+      - { slug: sobaki-v-moey-zhizni, title: "Собаки в моей жизни", kind: story, epigraph: "Охота без собак, как детство без сказок!" }
       - slug: sobaki-v-moey-seme
         title: "Собаки в моей семье"
         kind: story

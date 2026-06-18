@@ -1,7 +1,7 @@
 ---
 title: "Собачьи истории"
 slug: "sobachi-istorii"
-order: 14
+order: 15
 work: "zapiski-ohotoveda"
 subsections:
   - title: "Рада"

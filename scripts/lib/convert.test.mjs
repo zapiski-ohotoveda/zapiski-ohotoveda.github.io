@@ -121,3 +121,34 @@ describe('convertWork epigraph boundary (no content loss)', () => {
   });
 });
 
+describe('convertWork manifest-declared epigraph (sentence case)', () => {
+  const work = {
+    id: 'demo3', title: 'Демо3', single_page: false, strip: [],
+    stories: [
+      { slug: 'opening', title: 'Вступление', untitled: true, kind: 'story' },
+      { slug: 'dogs', title: 'Собаки в моей жизни', kind: 'story',
+        epigraph: 'Охота без собак, как детство без сказок!' },
+    ],
+  };
+  const src = [
+    '   Вступительный текст.',
+    '',
+    '        Собаки в моей жизни.',
+    '',
+    '     Охота без собак, как детство без сказок\\!',
+    '',
+    '   Моя жизнь с собаками.',
+    '',
+  ].join('\n');
+  const entries = convertWork(src, work);
+
+  it('splits the sentence-case heading into its own story', () => {
+    expect(entries.map((e) => e.slug)).toEqual(['opening', 'dogs']);
+  });
+  it('wraps the declared sentence-case epigraph as a blockquote, keeping its case', () => {
+    expect(entries[1].body).toContain('> Охота без собак, как детство без сказок!');
+    expect(entries[1].body).toContain('Моя жизнь с собаками.');
+    expect(entries[1].body).not.toMatch(/^Охота без собак/m); // not a plain paragraph
+  });
+});
+
