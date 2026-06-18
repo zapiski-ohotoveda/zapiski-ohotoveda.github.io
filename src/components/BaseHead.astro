@@ -1,4 +1,5 @@
 ---
+import { AUTHOR } from '../consts';
 interface Props { title: string; description: string; jsonLd?: Record<string, unknown> }
 const { title, description, jsonLd } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -7,6 +8,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="author" content={AUTHOR} />
 <link rel="canonical" href={canonical} />
 <meta property="og:type" content="article" />
 <meta property="og:url" content={canonical} />

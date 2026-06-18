@@ -1,12 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 import BookPage from '../../layouts/BookPage.astro';
+import Byline from '../../components/Byline.astro';
 
 const stories = (await getCollection('collection')).sort((a, b) => a.data.order - b.data.order);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <BookPage title="Записки охотоведа — оглавление" description="Сборник рассказов охотоведа: оглавление.">
   <h1>Записки охотоведа</h1>
+  <Byline />
   <ol class="toc">
     {stories.map((s) => (
       <li>

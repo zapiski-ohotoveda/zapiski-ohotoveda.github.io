@@ -2,13 +2,23 @@
 import { getEntry, render } from 'astro:content';
 import BookPage from '../../layouts/BookPage.astro';
 import ChapterNav from '../../components/ChapterNav.astro';
+import Byline from '../../components/Byline.astro';
+import { AUTHOR } from '../../consts';
 
 const novella = await getEntry('novella', 'taezhnyy-kapkan');
 const { Content, headings } = await render(novella);
 const description = 'Таёжный капкан — повесть о промысловых охотниках Западной Сибири.';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Таёжный капкан',
+  inLanguage: 'ru',
+  author: { '@type': 'Person', name: AUTHOR },
+};
 ---
-<BookPage title="Таёжный капкан — повесть" description={description}>
+<BookPage title="Таёжный капкан — повесть" description={description} jsonLd={jsonLd}>
   <h1>Таёжный капкан</h1>
+  <Byline />
   <ChapterNav headings={headings} />
   <Content />
 </BookPage>

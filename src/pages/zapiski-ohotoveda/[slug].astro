@@ -2,6 +2,8 @@
 import { getCollection, render } from 'astro:content';
 import BookPage from '../../layouts/BookPage.astro';
 import StoryNav from '../../components/StoryNav.astro';
+import Byline from '../../components/Byline.astro';
+import { AUTHOR } from '../../consts';
 
 export async function getStaticPaths() {
   const stories = (await getCollection('collection')).sort((a, b) => a.data.order - b.data.order);
@@ -18,9 +20,18 @@ export async function getStaticPaths() {
 const { story, prev, next } = Astro.props;
 const { Content } = await render(story);
 const description = `${story.data.title} — рассказ из книги «Записки охотоведа».`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: story.data.title,
+  inLanguage: 'ru',
+  author: { '@type': 'Person', name: AUTHOR },
+  isPartOf: { '@type': 'Book', name: 'Записки охотоведа' },
+};
 ---
-<BookPage title={`${story.data.title} — Записки охотоведа`} description={description}>
+<BookPage title={`${story.data.title} — Записки охотоведа`} description={description} jsonLd={jsonLd}>
   <h1>{story.data.title}</h1>
+  <Byline />
   <Content />
   <StoryNav prev={prev} next={next} />
 </BookPage>

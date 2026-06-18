@@ -3,6 +3,8 @@ import { getCollection, getEntry, render } from 'astro:content';
 import BookPage from '../layouts/BookPage.astro';
 import SiteIndex from '../components/SiteIndex.astro';
 import HorizonOrnament from '../components/HorizonOrnament.astro';
+import Byline from '../components/Byline.astro';
+import { AUTHOR } from '../consts';
 
 const stories = (await getCollection('collection')).sort((a, b) => a.data.order - b.data.order)
   .map((s) => ({ slug: s.data.slug, title: s.data.title, subsections: s.data.subsections }));
@@ -17,6 +19,7 @@ const jsonLd = {
   name: 'Записки охотоведа',
   inLanguage: 'ru',
   genre: 'Memoir',
+  author: { '@type': 'Person', name: AUTHOR },
   url: Astro.site?.href,
 };
 ---
@@ -25,6 +28,7 @@ const jsonLd = {
   description="Рассказы, очерки и повесть «Таёжный капкан» — о природе, охоте и людях тайги."
   jsonLd={jsonLd}>
   <h1>Записки охотоведа</h1>
+  <Byline />
   <HorizonOrnament />
   <p class="home-lead">Воспоминания, очерки и повесть профессионального охотоведа — о тайге,
      родной земле и людях, для которых охота была судьбой.</p>
