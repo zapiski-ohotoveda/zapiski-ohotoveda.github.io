@@ -1,0 +1,28 @@
+{
+  "name": "zapiski-ohotoveda",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=20.3.0" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "content:build": "node scripts/build-content.mjs",
+    "content:report": "node scripts/report-headings.mjs",
+    "content:check": "node scripts/check-fidelity.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.2.0",
+    "@fontsource/pt-serif": "^5.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.0",
+    "yaml": "^2.5.0",
+    "github-slugger": "^2.0.0"
+  }
+}
