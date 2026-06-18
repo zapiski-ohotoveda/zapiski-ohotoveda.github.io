@@ -1,0 +1,19 @@
+---
+interface Props { headings: { depth: number; slug: string; text: string }[] }
+const chapters = Astro.props.headings.filter((h) => h.depth === 2);
+---
+{chapters.length > 0 && (
+  <nav class="chapter-nav" aria-label="Главы">
+    <p class="chapter-nav__title">Главы</p>
+    <ol>
+      {chapters.map((c) => <li><a href={`#${c.slug}`}>{c.text}</a></li>)}
+    </ol>
+  </nav>
+)}
+<style>
+  .chapter-nav { font-family: system-ui, sans-serif; font-size: 0.85rem; margin: 0 0 2.5rem;
+    padding: 1rem 1.25rem; border: 1px solid var(--rule); border-radius: 6px; background: color-mix(in srgb, var(--paper) 80%, var(--rule)); }
+  .chapter-nav__title { margin: 0 0 0.5rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem; }
+  .chapter-nav ol { margin: 0; padding-left: 1.2rem; }
+  .chapter-nav a { color: var(--accent); text-decoration: none; }
+</style>
