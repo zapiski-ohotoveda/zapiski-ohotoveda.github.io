@@ -1,6 +1,24 @@
 ---
+import { getCollection, getEntry, render } from 'astro:content';
+import BookPage from '../layouts/BookPage.astro';
+import SiteIndex from '../components/SiteIndex.astro';
+
+const stories = (await getCollection('collection')).sort((a, b) => a.data.order - b.data.order)
+  .map((s) => ({ slug: s.data.slug, title: s.data.title, subsections: s.data.subsections }));
+
+const novella = await getEntry('novella', 'taezhnyy-kapkan');
+const { headings } = await render(novella);
+const chapters = headings.filter((h) => h.depth === 2).map((h) => ({ slug: h.slug, text: h.text }));
 ---
-<html lang="ru">
-  <head><meta charset="utf-8" /><title>Записки охотоведа</title></head>
-  <body><h1>Записки охотоведа</h1><p>Сайт в разработке.</p></body>
-</html>
+<BookPage
+  title="Записки охотоведа — рассказы и повесть об охоте"
+  description="Рассказы, очерки и повесть «Таёжный капкан» — о природе, охоте и людях тайги.">
+  <h1>Записки охотоведа</h1>
+  <p class="home-lead">Воспоминания, очерки и повесть профессионального охотоведа — о тайге,
+     родной земле и людях, для которых охота была судьбой.</p>
+  <SiteIndex stories={stories} chapters={chapters} />
+</BookPage>
+<style>
+  .home-lead { text-indent: 0; text-align: center; color: var(--muted); font-style: italic;
+    max-width: 30rem; margin: 0 auto 1rem; }
+</style>
