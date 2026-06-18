@@ -24,7 +24,8 @@
 }
 
 * { box-sizing: border-box; }
-html { background: var(--paper); }
+/* Offset anchor jumps so headings land below the sticky reading bar */
+html { background: var(--paper); scroll-padding-top: 4.5rem; }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0;
