@@ -2,13 +2,13 @@
 import BaseHead from '../components/BaseHead.astro';
 import ReadingBar from '../components/ReadingBar.astro';
 import '../styles/book.css';
-interface Props { title: string; description: string }
-const { title, description } = Astro.props;
+interface Props { title: string; description: string; jsonLd?: Record<string, unknown> }
+const { title, description, jsonLd } = Astro.props;
 ---
 <!doctype html>
 <html lang="ru">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} jsonLd={jsonLd} />
     <slot name="head" />
   </head>
   <body>

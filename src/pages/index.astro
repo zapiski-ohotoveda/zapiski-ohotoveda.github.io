@@ -10,10 +10,20 @@ const stories = (await getCollection('collection')).sort((a, b) => a.data.order 
 const novella = await getEntry('novella', 'taezhnyy-kapkan');
 const { headings } = await render(novella);
 const chapters = headings.filter((h) => h.depth === 2).map((h) => ({ slug: h.slug, text: h.text }));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Book',
+  name: 'Записки охотоведа',
+  inLanguage: 'ru',
+  genre: 'Memoir',
+  url: Astro.site?.href,
+};
 ---
 <BookPage
   title="Записки охотоведа — рассказы и повесть об охоте"
-  description="Рассказы, очерки и повесть «Таёжный капкан» — о природе, охоте и людях тайги.">
+  description="Рассказы, очерки и повесть «Таёжный капкан» — о природе, охоте и людях тайги."
+  jsonLd={jsonLd}>
   <h1>Записки охотоведа</h1>
   <HorizonOrnament />
   <p class="home-lead">Воспоминания, очерки и повесть профессионального охотоведа — о тайге,
