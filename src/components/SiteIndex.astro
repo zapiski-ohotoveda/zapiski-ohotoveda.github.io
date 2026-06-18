@@ -34,6 +34,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <style>
   .index h2 { text-align: left; font-size: 1.4em; margin: 2.5rem 0 0.3rem; }
   .index h2 a { color: var(--ink); text-decoration: none; }
+  /* left-align the pine heading-mark under these left-aligned section titles */
+  .index h2::after { margin-left: 0; margin-right: auto; }
   .index__lead { color: var(--muted); font-style: italic; text-indent: 0; margin: 0 0 0.8rem; }
   .toc { list-style: none; padding: 0; counter-reset: item; }
   .toc > li { margin: 0.55rem 0; counter-increment: item; }
