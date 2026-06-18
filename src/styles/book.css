@@ -1,0 +1,82 @@
+@import '@fontsource/pt-serif/400.css';
+@import '@fontsource/pt-serif/400-italic.css';
+@import '@fontsource/pt-serif/700.css';
+
+:root {
+  --font-scale: 1;
+  --paper: #faf6ec;
+  --ink: #2b2620;
+  --muted: #6b6253;
+  --accent: #5c4326;
+  --rule: #d9cdb6;
+  --measure: 38rem;
+}
+:root[data-theme='dark'] {
+  --paper: #1c1a17;
+  --ink: #e8e0d0;
+  --muted: #a89f8c;
+  --accent: #c9a36a;
+  --rule: #3a352d;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: 'PT Serif', Georgia, 'Times New Roman', serif;
+  font-size: calc(1.18rem * var(--font-scale));
+  line-height: 1.66;
+  -webkit-text-size-adjust: 100%;
+}
+
+.reading-bar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; padding: 0.5rem 1rem;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rule);
+  font-family: system-ui, sans-serif; font-size: 0.85rem;
+}
+.reading-bar a { color: var(--muted); text-decoration: none; }
+.reading-bar__controls button {
+  font: inherit; cursor: pointer; border: 1px solid var(--rule);
+  background: transparent; color: var(--ink); border-radius: 4px;
+  padding: 0.2rem 0.55rem; margin-left: 0.35rem;
+}
+
+main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 1.25rem 6rem; }
+
+.prose h1 { font-size: 1.9em; line-height: 1.2; text-align: center; margin: 1rem 0 2.5rem; font-weight: 700; }
+.prose h2 { font-size: 1.25em; text-align: center; letter-spacing: 0.03em; margin: 2.8rem 0 1.4rem; font-weight: 700; }
+.prose p { margin: 0; text-indent: 1.6em; text-align: justify; hyphens: auto; }
+.prose p:first-of-type { text-indent: 0; }
+.prose p + p { margin-top: 0; }
+
+/* Drop cap on the opening paragraph of each work/story */
+.prose > p:first-of-type::first-letter {
+  float: left; font-size: 3.1em; line-height: 0.8;
+  padding: 0.05em 0.08em 0 0; color: var(--accent); font-weight: 700;
+}
+
+/* Epigraphs (author's ALL-CAPS aphorisms) */
+.prose blockquote {
+  margin: 2rem auto; max-width: 30rem; text-align: center;
+  font-style: italic; color: var(--muted);
+  letter-spacing: 0.02em; line-height: 1.5;
+}
+.prose blockquote p { text-indent: 0; text-align: center; }
+
+/* Scene break ornament */
+.prose hr {
+  border: 0; margin: 2.2rem 0; text-align: center;
+}
+.prose hr::before { content: '* * *'; color: var(--muted); letter-spacing: 0.6em; }
+
+a { color: var(--accent); }
+@media (max-width: 480px) {
+  body { font-size: calc(1.08rem * var(--font-scale)); }
+  .prose p { text-align: left; }
+}

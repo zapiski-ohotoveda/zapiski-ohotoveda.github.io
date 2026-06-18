@@ -1,0 +1,17 @@
+---
+interface Props { title: string; description: string; jsonLd?: Record<string, unknown> }
+const { title, description, jsonLd } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content="article" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content="ru_RU" />
+<meta name="twitter:card" content="summary" />
+<link rel="alternate" type="application/rss+xml" title="Записки охотоведа" href={new URL('rss.xml', Astro.site)} />
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
