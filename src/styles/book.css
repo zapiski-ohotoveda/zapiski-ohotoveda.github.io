@@ -82,11 +82,13 @@ main { max-width: var(--measure); margin: 0 auto; padding: 2.5rem 1.25rem 6rem; 
   padding: 0.05em 0.08em 0 0; color: var(--taiga); font-weight: 700;
 }
 
-/* Epigraphs (author's ALL-CAPS aphorisms) */
+/* Epigraphs (author's aphorisms) — always shown in uppercase, so a
+   sentence-case epigraph matches the author's ALL-CAPS ones visually. */
 .prose blockquote {
   margin: 2rem auto; max-width: 30rem; text-align: center;
   font-style: italic; color: var(--muted);
   letter-spacing: 0.02em; line-height: 1.5;
+  text-transform: uppercase;
 }
 .prose blockquote p { text-indent: 0; text-align: center; }
 
