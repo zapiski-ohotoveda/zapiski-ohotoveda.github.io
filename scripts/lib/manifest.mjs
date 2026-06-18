@@ -19,6 +19,9 @@ export function indexWork(work) {
   // epigraph -> its owning story slug, so it is attached to that story even
   // when it appears in the source before the story's heading.
   const epigraphMap = new Map();
+  // Colophon lines (author signature, writing date, postscript) rendered in a
+  // distinct signature style. Maps normalized text -> owning story slug.
+  const colophonMap = new Map();
 
   for (const story of work.stories) {
     if (!story.untitled) {
@@ -30,10 +33,17 @@ export function indexWork(work) {
     if (story.epigraph) {
       epigraphMap.set(normalizeTitle(story.epigraph), story.slug);
     }
+    for (const col of story.colophon ?? []) {
+      colophonMap.set(normalizeTitle(col), story.slug);
+    }
   }
   // Work-level epigraphs (e.g. a novella's dedication/verse before chapter one).
   for (const epi of work.epigraphs ?? []) {
     epigraphMap.set(normalizeTitle(epi), work.id);
   }
-  return { titleMap, subsectionMap, stripSet, epigraphMap };
+  // Work-level colophon (e.g. a novella's closing signature + postscript).
+  for (const col of work.colophon ?? []) {
+    colophonMap.set(normalizeTitle(col), work.id);
+  }
+  return { titleMap, subsectionMap, stripSet, epigraphMap, colophonMap };
 }

@@ -4,13 +4,13 @@ import { indexWork } from './manifest.mjs';
 const EPIGRAPH_THRESHOLD = 0.7;
 
 export function convertWork(sourceText, work) {
-  const { titleMap, subsectionMap, stripSet, epigraphMap } = indexWork(work);
+  const { titleMap, subsectionMap, stripSet, epigraphMap, colophonMap } = indexWork(work);
   const lines = sourceText.split('\n');
 
   if (work.single_page) {
-    return [convertSinglePage(lines, work, { stripSet, epigraphMap })];
+    return [convertSinglePage(lines, work, { stripSet, epigraphMap, colophonMap })];
   }
-  return convertSplit(lines, work, { titleMap, subsectionMap, stripSet, epigraphMap });
+  return convertSplit(lines, work, { titleMap, subsectionMap, stripSet, epigraphMap, colophonMap });
 }
 
 function emitParagraph(buffer, rawLine) {
@@ -30,6 +30,12 @@ function emitParagraph(buffer, rawLine) {
 
 function epigraphLine(rawLine) {
   return `> ${collapseWhitespace(unescape(rawLine))}`;
+}
+
+// A signature/date/postscript line, set apart from the body via raw HTML so
+// it can be styled distinctly (Astro renders raw HTML in Markdown).
+function colophonLine(rawLine) {
+  return `<p class="colophon">${collapseWhitespace(unescape(rawLine))}</p>`;
 }
 
 function bodyFrom(buffer) {
@@ -58,6 +64,10 @@ function convertSplit(lines, work, idx) {
       // Attach to the declaring story (may differ from current — a preface
       // epigraph can appear before its story's heading).
       buffers.get(idx.epigraphMap.get(key)).push(epigraphLine(raw));
+      continue;
+    }
+    if (idx.colophonMap.has(key)) {
+      buffers.get(idx.colophonMap.get(key)).push(colophonLine(raw));
       continue;
     }
     emitParagraph(buffers.get(current.slug), raw);
@@ -93,6 +103,10 @@ function convertSinglePage(lines, work, idx) {
     }
     if (idx.epigraphMap.has(key)) {
       buffer.push(epigraphLine(raw));
+      continue;
+    }
+    if (idx.colophonMap.has(key)) {
+      buffer.push(colophonLine(raw));
       continue;
     }
     emitParagraph(buffer, raw);

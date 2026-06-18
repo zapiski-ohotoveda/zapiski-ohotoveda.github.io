@@ -219,3 +219,37 @@ describe('convertWork single_page: work epigraphs + section heading level', () =
   });
 });
 
+describe('convertWork colophon (signature / postscript)', () => {
+  it('wraps declared colophon lines in <p class="colophon">, not plain paragraphs', () => {
+    const work = {
+      id: 'demo5', title: 'Демо5', single_page: false, strip: [],
+      stories: [
+        { slug: 'a', title: 'A', untitled: true, kind: 'story',
+          colophon: ['Виталий Ворушин. май 2024 года.', 'В мае 1974 года я вернулся.'] },
+      ],
+    };
+    const src = [
+      '   Текст рассказа.',
+      '',
+      '   Виталий Ворушин. май 2024 года.',
+      '   В мае 1974 года я вернулся.',
+      '',
+    ].join('\n');
+    const [entry] = convertWork(src, work);
+    expect(entry.body).toContain('<p class="colophon">Виталий Ворушин. май 2024 года.</p>');
+    expect(entry.body).toContain('<p class="colophon">В мае 1974 года я вернулся.</p>');
+    expect(entry.body).toContain('Текст рассказа.');
+  });
+
+  it('supports work-level colophon for single_page works', () => {
+    const work = {
+      id: 'nov3', title: 'Повесть3', single_page: true, strip: [],
+      colophon: ['Биолог-охотовед Виталий Ворушин.'],
+      stories: [{ slug: 'glava-pervaya', title: 'Глава первая', kind: 'chapter' }],
+    };
+    const src = ['        ГЛАВА ПЕРВАЯ.', '', '   Текст.', '', '   Биолог-охотовед Виталий Ворушин.', ''].join('\n');
+    const [entry] = convertWork(src, work);
+    expect(entry.body).toContain('<p class="colophon">Биолог-охотовед Виталий Ворушин.</p>');
+  });
+});
+
