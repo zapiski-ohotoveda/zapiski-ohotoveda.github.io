@@ -9,14 +9,14 @@ works:
     stories:
       - { slug: detstvo, title: "Детство", untitled: true, kind: story }   # PROVISIONAL title — confirm with author
       - { slug: znakomstvo-s-okhotugodyami, title: "Знакомство с охотугодьями", kind: story }
-      - { slug: okhotobshchestvo, title: "Охотобщество — первая ступень в профессию", kind: story }
+      - { slug: okhotobshchestvo, title: "Охотобщество, как первая ступень в профессию", kind: story }
       - { slug: ucheba-put-k-poznaniyu, title: "Учёба — путь к познанию", kind: story }
       - { slug: mladshiy-brat-tigra, title: "Младший брат тигра", kind: story }
       - { slug: zagadochny-koster, title: "Загадочный костёр", kind: story }
       - { slug: sluchay-v-urmane, title: "Случай в урмане", kind: story }
       - { slug: nepredvidennaya-vstrecha, title: "Непредвиденная встреча", kind: story }
       - { slug: pervomayskiy-marafon, title: "Первомайский марафон", kind: story }
-      - { slug: bez-viny-vinovaty, title: "Без вины виноватый", kind: story }
+      - { slug: bez-viny-vinovaty, title: "Без вины — виноватый", kind: story }
       - { slug: dosadny-sluchay, title: "Досадный случай", kind: story }
       - { slug: soboliny-kot, title: "Соболиный кот", kind: story }
       - { slug: vrag-naroda, title: "Враг народа", kind: story }

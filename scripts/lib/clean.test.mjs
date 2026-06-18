@@ -48,6 +48,14 @@ describe('normalizeTitle', () => {
   it('uppercases mixed-case Cyrillic input', () => {
     expect(normalizeTitle('Досадный случай\\!')).toBe('ДОСАДНЫЙ СЛУЧАЙ');
   });
+  it('matches across comma/dash/spacing differences so a title pairs with its source heading', () => {
+    expect(normalizeTitle('ОХОТОБЩЕСТВО, КАК ПЕРВАЯ СТУПЕНЬ В ПРОФЕССИЮ.'))
+      .toBe(normalizeTitle('Охотобщество, как первая ступень в профессию'));
+    expect(normalizeTitle('УЧЁБА – ПУТЬ К ПОЗНАНИЮ.')) // en-dash in source
+      .toBe(normalizeTitle('Учёба — путь к познанию')); // em-dash in manifest
+    expect(normalizeTitle('БЕЗ ВИНЫ - ВИНОВАТЫЙ\\!'))
+      .toBe(normalizeTitle('Без вины — виноватый'));
+  });
 });
 
 describe('collapseWhitespace', () => {

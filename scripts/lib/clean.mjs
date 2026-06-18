@@ -25,8 +25,12 @@ export function uppercaseFraction(text) {
 }
 
 export function normalizeTitle(text) {
-  return collapseWhitespace(unescape(text))
-    .replace(/[.!?]+$/u, '')
+  // Match key for pairing a manifest title with its source heading. Ignores
+  // case, punctuation, dash variants (-, –, —) and spacing so a title matches
+  // even when commas/dashes differ between the manifest and the source. Words
+  // must still match. Used only for matching, never for display.
+  return unescape(text)
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
     .trim()
     .toUpperCase();
 }

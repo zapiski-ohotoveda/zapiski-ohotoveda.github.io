@@ -8,7 +8,7 @@ export function convertWork(sourceText, work) {
   const lines = sourceText.split('\n');
 
   if (work.single_page) {
-    return [convertSinglePage(lines, work, { titleMap, stripSet })];
+    return [convertSinglePage(lines, work, { stripSet })];
   }
   return convertSplit(lines, work, { titleMap, subsectionMap, stripSet });
 }
@@ -80,7 +80,7 @@ function convertSinglePage(lines, work, idx) {
   }
 
   return {
-    slug: 'taezhnyy-kapkan',
+    slug: work.id, // a single-page work's id is its canonical slug
     title: work.title,
     order: 0,
     work: work.id,

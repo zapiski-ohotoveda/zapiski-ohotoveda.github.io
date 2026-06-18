@@ -63,7 +63,7 @@ describe('convertWork (split)', () => {
 });
 
 const novellaWork = {
-  id: 'nov', title: 'Таёжный капкан', single_page: true,
+  id: 'taezhnyy-kapkan', title: 'Таёжный капкан', single_page: true,
   strip: ['ПОВЕСТЬ. Готова в печать.'],
   stories: [
     { slug: 'glava-pervaya', title: 'Глава первая', kind: 'chapter' },
@@ -87,9 +87,9 @@ const novellaSource = [
 
 describe('convertWork (single_page)', () => {
   const entries = convertWork(novellaSource, novellaWork);
-  it('returns exactly one entry', () => {
+  it('returns exactly one entry whose slug is the work id', () => {
     expect(entries).toHaveLength(1);
-    expect(entries[0].slug).toBe('taezhnyy-kapkan');
+    expect(entries[0].slug).toBe(novellaWork.id);
   });
   it('keeps the framing intro before any chapter heading', () => {
     expect(entries[0].body.indexOf('Вступительный абзац.')).toBeLessThan(
@@ -102,3 +102,22 @@ describe('convertWork (single_page)', () => {
     expect(entries[0].body).not.toContain('Готова в печать');
   });
 });
+
+describe('convertWork epigraph boundary (no content loss)', () => {
+  const work = {
+    id: 'demo2', title: 'Демо2', single_page: false, strip: [],
+    stories: [{ slug: 'a', title: 'А', untitled: true, kind: 'story' }],
+  };
+  it('keeps a mostly-lowercase line that merely starts with CAPS as a paragraph', () => {
+    const src = ['   ЧЕМ ЯРЧЕ ЭЙФОРИЯ, тем глубже падение. Леонид проснулся поздно.', ''].join('\n');
+    const [entry] = convertWork(src, work);
+    expect(entry.body).toContain('ЧЕМ ЯРЧЕ ЭЙФОРИЯ, тем глубже падение. Леонид проснулся поздно.');
+    expect(entry.body).not.toContain('> ЧЕМ ЯРЧЕ');
+  });
+  it('treats a fully-uppercase standalone line as an epigraph', () => {
+    const src = ['   ПРОШЛОЕ НЕ ОСТАВЛЯЕТ НАС\\!', ''].join('\n');
+    const [entry] = convertWork(src, work);
+    expect(entry.body).toContain('> ПРОШЛОЕ НЕ ОСТАВЛЯЕТ НАС!');
+  });
+});
+
