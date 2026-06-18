@@ -20,6 +20,7 @@ for (const work of manifest.works) {
   const dir = DIRS[work.id];
   const combined = readdirSync(dir)
     .filter((f) => f.endsWith('.md'))
+    .sort()
     .map((f) => readFileSync(`${dir}/${f}`, 'utf8'))
     .join('\n');
 

@@ -37,10 +37,12 @@ function frontmatter(entry, work) {
 let total = 0;
 const empty = [];
 for (const work of manifest.works) {
+  const outDir = OUT[work.id];
+  if (!outDir) throw new Error(`build-content: no output dir mapped for work "${work.id}" — add it to OUT`);
   const sourceText = readFileSync(work.source, 'utf8');
   const entries = convertWork(sourceText, work);
   for (const entry of entries) {
-    const file = `${OUT[work.id]}/${entry.slug}.md`;
+    const file = `${outDir}/${entry.slug}.md`;
     writeFileSync(file, frontmatter(entry, work) + entry.body);
     total += 1;
     if (entry.body.trim() === '') empty.push(file);
